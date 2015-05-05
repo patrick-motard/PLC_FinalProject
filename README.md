@@ -21,3 +21,14 @@ GENERATE MAPPING FILE:
 8. function ( list of frequency/name pairs ordered by freq, and array of sequential binary numbers) outputs array of (name/binary) pairs
 9. function to encode, takes original paragraph and substitues in associated binary values
 10. function to decode binary into original paragraph
+
+GIT COMMANDS
+git status
+git add -A
+git commit -m 'message goes here'
+git push
+git pull
+
+to wipe my progess to get most recent
+git fetch --all
+git fetch --hard origin/master
