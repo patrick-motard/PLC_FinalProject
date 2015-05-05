@@ -13,37 +13,40 @@ function HomeController($scope) {
 	//returns a list of words
 	var listGenerator = function (text) {
 
-		$scope.main = text.split(" ");
+		return text.split(" ");
 
 	}
 
 	//takes: array of word strings
 	//returns: array of {'word',frequency} pairs
-	var listCount = function (list){
+	var listCount = function (alist){
 		var frequencyCount = [],
 		i,j;
 
-		for (i=0; i<list.length; i++){
+		for (i=0; i< alist.length; i++){
 
 			for(j = 0; j < frequencyCount.length; j++){
 				
-				if(frequencyCount[j].word === list[i]){
+				if(frequencyCount[j].word === alist[i]){
 				
 					frequencyCount[j].freq += 1;
-					continue;
+					break;
 				}
-				frequencyCount.push({
-					word: list[i],
-					freq: 1
-				});
 			}
+
+			frequencyCount.push(
+				{
+					word: alist[i],
+					freq: 1
+				}
+			);
 		}
 		return frequencyCount;
 	}
+	var chicken = listGenerator(teststring);
+	listCount(chicken);
 
-	listGenerator(teststring)
     $scope.message = 'hello this is the home view!'
-		}
-};
+}
 
 
