@@ -4,7 +4,7 @@ var app = angular.module('PLCApp', ['ngRoute'])
             $routeProvider
                 .when('/', {
                     templateUrl: 'views/home.html',
-                    controller: 'homeController'
+                    controller: 'homeController as vm'
                 })
                 .when('/test', {
                     templateUrl: 'views/test.html',
