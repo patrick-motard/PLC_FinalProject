@@ -23,7 +23,7 @@ GENERATE MAPPING FILE:
 10. function to decode binary into original paragraph
 
 GIT COMMANDS
-git status
+git status 	
 git add -A
 git commit -m 'message goes here'
 git push

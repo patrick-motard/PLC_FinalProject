@@ -1,4 +1,4 @@
-var app = angular.module('snowballApp', ['ngRoute'])
+var app = angular.module('PLCApp', ['ngRoute'])
     .config([
         '$routeProvider', function ($routeProvider) {
             $routeProvider

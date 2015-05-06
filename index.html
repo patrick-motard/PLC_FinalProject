@@ -1,19 +1,39 @@
 ﻿
 <!DOCTYPE html>
-<html lang="en" data-ng-app="snowballApp">
+<html lang="en" data-ng-app="PLCApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="extnesion of unbury.me">
-    <meta name="author" content="Patrick Motard & Aaron Masover">
+    <meta name="description" content="final project for PLC">
+    <meta name="author" content="Patrick Motard & Jake Sellers">
       
     <!--//libraries//-->
-    <script src="js/jquery-2.1.1.js"></script>
+    <!--<script src="js/jquery-2.1.1.js"></script>
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script> 
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- BOOTSTRAP -->
+    <script rel="stylesheet" src="bower_components/bootstrap/dist/css/bootstrap.min.css"></script>
+    <script rel="stylesheet" src="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- JQUERY -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    
+    <!-- ANGULAR + ngROUTE -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+
+    <!-- ANGULAR UI BOOTSTRAP -->
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script rel="stylesheet" src="bower_components/angular-bootstrap/ui-bootstrap-csp.min.css"></script>
+
+    <!-- PEGJS -->
+    <script src="bower_components/pegjs/peg-0.8.0.min.js"></script>
     
     <!--//project files//-->
     <link href="app.css" rel="stylesheet" />
@@ -22,10 +42,12 @@
     <script src="controllers/homeController.js"></script>
     <script src="controllers/testController.js"></script>
 
-    <title>Testing Page</title>
+    <title>PLC Final Project</title>
 
   </head>
   <body>
-    <div ng-view></div>
+    <div class="container">
+      <div ng-view></div>
+    </div>
   </body>
 </html>
