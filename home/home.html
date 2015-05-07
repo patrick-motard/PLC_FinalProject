@@ -18,7 +18,8 @@
 		<ul>
 			<li ng-repeat="result in vm.testResults">
 				<h6 ng-show="result.state">{{result.testName}} " Passed! " {{result.message}}</h6>
-				<h6 ng-show="result.state">{{result.testName}} " Passed! " {{result.message}}</h6>
+				<h6 ng-show="!result.state">{{result.testName}} " Failed! " {{result.message}}</h6>
 			</li>
-		</ul>	
+		</ul>
+	</div>	
 </div>
