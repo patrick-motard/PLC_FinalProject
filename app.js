@@ -3,11 +3,11 @@ var app = angular.module('PLCApp', ['ngRoute'])
         '$routeProvider', function ($routeProvider) {
             $routeProvider
                 .when('/', {
-                    templateUrl: 'views/home.html',
+                    templateUrl: 'home/home.html',
                     controller: 'homeController as vm'
                 })
                 .when('/test', {
-                    templateUrl: 'views/test.html',
+                    templateUrl: 'testEnv/test.html',
                     controller: 'testController'
                 })
                 .otherwise({
