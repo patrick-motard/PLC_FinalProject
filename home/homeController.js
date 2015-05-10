@@ -15,10 +15,11 @@ function HomeController($scope) {
 		out = OrderByFreq(out);
 
 		//create priority queue
-		vm.queue = new PriorityQueue();
+		var queue = new PriorityQueue();
 		//instantiate it with values from list of sorted word/frequency objects
-		vm.queue.populateQueue(out);
-
+		queue.populateQueue(out);
+		vm.queue = queue.get();
+		
 		vm.outputMessage = out;
 	};
 	vm.outputMessage = "";
@@ -74,14 +75,13 @@ function HomeController($scope) {
 		return countObjs;
 	}
 
-	//#5. create a data structure for nod (parent, child left/right, pair)
-	//takes: pair obj {word, freq}, parent Node, child Node left/right, all optional
+	//#5. create a data structure for nod (parent, child left/right, pair
 	//this is a class/object/datastructure and can be instantiated
-	function Node (pair, aParent, childLeft, childRight){
-		this._pair = pair;
-		this._parent = aParent;
-		this._childLeft = childLeft;
-		this._chidlRight = childRight;
+	function Node () {
+		this.pair = null;
+		this.rent = null;
+		this.childLeft = null;
+		this.childRight = null;
 	}
 
 	//#6. create queue with insert and combine methods
@@ -92,7 +92,8 @@ function HomeController($scope) {
 			var i,
 				tempNode;
 			for(i = 0; i < input.length; i++){
-				tempNode = new Node(input[i]);
+				tempNode = new Node();
+				tempNode.pair = input[i];
 				this._queue.push(tempNode);
 			}
 		}
