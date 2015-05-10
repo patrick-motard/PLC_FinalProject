@@ -4,11 +4,19 @@ HomeController.$inject = ['$scope']
 
 function HomeController($scope) {
 	var vm = this;
-	vm.main = "this message tests scope binding";
+	vm.inputMessage = "";
+	vm.encode = true;
+	vm.parseInput = function(){
+		var inn = vm.inputMessage,
+		out = vm.outputMessage;
 
+		out = listGenerator(inn);
+		out = listCount(out);
+		
+		vm.outputMessage = out;
+	};
+	vm.outputMessage = "";
 
-	var ourPara = 'Squashy armchairs dirt on your nose brass scales crush the Sopophorous bean with flat side of silver dagger, releases juice better than cutting. Full moon Whomping Willow three turns should do it lemon drops. Locomotor trunks owl treats that will be 50 points, Mr. Potter. Witch Weekly, he will rise again and he will come for us, headmaster Erumpent jhorn. Fenrir Grayback horseless carriages ‘zis is a chance many would die for!';
-	
 	var teststring = 'hi hi bye hello hi hi bye hello hi hi bye hello';
 
 
@@ -73,12 +81,30 @@ function HomeController($scope) {
 	function PriorityQueue () {
 		
 		this._queue = [];
-
+		this.populateQueue = function (input) {
+			var i,
+				tempNode;
+			for(i = 0; i < input.length; i++){
+				tempNode = new Node(input[i]);
+				this._queue.push(tempNode);
+			}
+		}
+		this.get = function () {
+			return this._queue;
+		}
+		this.pop = function () {
+			if(this._queue.legth < 1){
+				return null
+			}
+			this._queue
+		}
 		this.insert = function (huffman) {
 			this._queue.push(huffman);
 		}
 
+		this.merge = function () {
 
+		}
 	}
 
     //----------------------------------------------------------------------//

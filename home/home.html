@@ -1,9 +1,11 @@
 <div class="row">
 	<div class="col-lg-12">
 		<form>
-			  	<div class="form-group">
+		  	<div class="form-group">
 		    	<label for="textInput">Insert Text:</label>
-		    	<input type="text" class="form-control" id="textInput" placeholder="paste text here"/>
+		    	<input 	type="text" class="form-control" id="textInput" ng-model="vm.inputMessage" placeholder="paste text here"/>
+		    	<button type="button" ng-click="vm.parseInput()">Parse</button>
+		    	<p> {{vm.outputMessage}}</p>
 		  	</div>
 			  	<div class="form-group">
 		    	<label for="Output">Binding Working?</label>
