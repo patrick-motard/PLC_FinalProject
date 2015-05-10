@@ -1,27 +1,38 @@
-<div class="row">
-	<div class="col-lg-12">
+<div class="row" style="padding-top:2em; padding-bottom:2em; height 400px;">
+	<!-- //TEST SECTION//-->
+	<div class="col-lg-2" style="border:1px solid black; height:375px; padding-top:2em;">
+		<h3>Test Results</h3>
+		<ul>
+			<li ng-repeat="result in vm.testResults">
+				<h5 ng-show="result.state">{{result.testName}} "Passed!"</h5>
+				<h5 ng-show="!result.state">{{result.testName}} " Failed! " {{result.message}}</h5>
+			</li>
+		</ul>
+	</div>
+	<!-- //INPUT SECTION//-->
+	<div class="col-lg-3" style="border:1px solid black; height:375px; padding-top:2em;">
+		<h3>Input Text</h3>
 		<form>
 		  	<div class="form-group">
 		    	<label for="textInput">Insert Text:</label>
-		    	<input 	type="text" class="form-control" id="textInput" ng-model="vm.inputMessage" placeholder="paste text here"/>
-		    	<button type="button" ng-click="vm.parseInput()">Parse</button>
-		    	<p> {{vm.outputMessage}}</p>
-		  	</div>
-			  	<div class="form-group">
-		    	<label for="Output">Binding Working?</label>
-		    	<p>{{vm.main}}</p>
+		    	<div class="input-group">
+      				<input type="text" ng-model="vm.inputMessage" class="form-control" placeholder="Paste Text Here">
+      				<span class="input-group-btn">
+        				<button class="btn btn-default" type="button" ng-click="vm.parseInput()">Parse</button>
+      				</span>
+    			</div><!-- /input-group -->
 		  	</div>
 		</form>
 	</div>
+	<!-- //OUTPUT SECTION//-->
+	<div class="col-lg-4" style="border:1px solid black; height:375px; padding-top:2em;">
+		<h3>Output</h3>
+		<!--LIST OF WORDS-->
+		<div>
+			<ul>
+				<li ng-repeat="object in vm.outputMessage">{{object.word}}
+			<p>{{vm.outputMessage}}</p>
+		</div>
+	</div>
 </div>
 
-<div class="row">
-	<div class="col-lg-12">
-		<ul>
-			<li ng-repeat="result in vm.testResults">
-				<h6 ng-show="result.state">{{result.testName}} " Passed! " {{result.message}}</h6>
-				<h6 ng-show="!result.state">{{result.testName}} " Failed! " {{result.message}}</h6>
-			</li>
-		</ul>
-	</div>	
-</div>

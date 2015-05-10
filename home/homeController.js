@@ -4,51 +4,58 @@ HomeController.$inject = ['$scope']
 
 function HomeController($scope) {
 	var vm = this;
-	vm.inputMessage = "";
+	vm.inputMessage = 'hi hi bye hello hi hi bye hello hi hi bye hello this is an awesome text string thing heya';
 	vm.encode = true;
 	vm.parseInput = function(){
 		var inn = vm.inputMessage,
 		out = vm.outputMessage;
 
-		out = listGenerator(inn);
-		out = listCount(out);
-		
+		out = ListGenerator(inn);
+		out = GetFrequencyObjects(out);
+		out = OrderByFreq(out);
+
+		//create priority queue
+		vm.queue = new PriorityQueue();
+		//instantiate it with values from list of sorted word/frequency objects
+		vm.queue.populateQueue(out);
+
 		vm.outputMessage = out;
 	};
 	vm.outputMessage = "";
 
-	var teststring = 'hi hi bye hello hi hi bye hello hi hi bye hello';
+	
 
 
 	//takes string representing a paragraph
 	//returns a list of words
-	var listGenerator = function (text) {
+	var ListGenerator = function (text) {
 		return text.split(" ");
 	}
 
 	//takes: array of word strings
 	//returns: array of {'word',frequency} pairs
-	var listCount = function (alist){
+	var GetFrequencyObjects = function (alist){
+		
 		var frequencyCount = [],
-		i,j;
+			found,i,j;
+
 		for (i=0; i< alist.length; i++){
+			found = false;
 			for(j = 0; j < frequencyCount.length; j++){
 				
 				if(frequencyCount[j].word === alist[i]){
 				
 					frequencyCount[j].freq += 1;
-					break;
+					found = true;
 				}
 			}
-			frequencyCount.push(
-				{
-					word: alist[i],
-					freq: 1
-				}
-			);
+			if(found === false){
+				frequencyCount.push({word: alist[i], freq: 1});		
+			}
 		}
 		return frequencyCount;
 	}
+
 
 	//takes: list of word freq pairs
 	//gives: list sorted by freq
