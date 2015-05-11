@@ -12,14 +12,14 @@ function HomeController($scope) {
 
 		out = ListGenerator(inn);
 		out = GetFrequencyObjects(out);
-		out = OrderByFreq(out);
+		out = OrderNodeByFreq(out);
 
 		//create priority queue
 		var queue = new PriorityQueue();
 		//instantiate it with values from list of sorted word/frequency objects
 		queue.populateQueue(out);
-		vm.queue = queue.get();
-		
+		vm.queue = queue.getQueue();
+
 		vm.outputMessage = out;
 	};
 	vm.outputMessage = "";
@@ -59,15 +59,15 @@ function HomeController($scope) {
 
 
 	//takes: list of word freq pairs
-	//gives: list sorted by freq
-	var OrderByFreq = function (countObjs) {
+	//gives: list of nodes sorted by freq
+	var OrderNodeByFreq = function (countObjs) {
 		var i;
 
 		countObjs.sort(function(thisObj, theNextObj){
-			if(thisObj.freq < theNextObj.freq){
+			if(thisObj.pair.freq < theNextObj.pair.freq){
 				return -1;
 			}
-			if(thisObj.freq > theNextObj.freq){
+			if(thisObj.pair.freq > theNextObj.pair.freq){
 				return 1;
 			}
 			return 0;
@@ -88,6 +88,8 @@ function HomeController($scope) {
 	function PriorityQueue () {
 		
 		this._queue = [];
+		this._huffman = [];
+
 		this.populateQueue = function (input) {
 			var i,
 				tempNode;
@@ -97,22 +99,44 @@ function HomeController($scope) {
 				this._queue.push(tempNode);
 			}
 		}
-		this.get = function () {
+
+		this.getQueue = function () {
 			return this._queue;
 		}
-		this.pop = function () {
-			if(this._queue.legth < 1){
-				return null
-			}
-			this._queue
+
+		this.getHuffman = function () {
+			return this._huffman;
 		}
-		this.insert = function (huffman) {
-			this._queue.push(huffman);
+
+		this.pop = function () {
+			if(this._queue.length < 1){
+				return null;
+			}
+			return this._queue.splice(0,1);
+		}
+
+		this.insert = function (node) {
+			this._queue.push(node);
 		}
 
 		this.merge = function () {
-
+			this
 		}
+
+		this.createHuffman = function () {
+			var tempQ = this._queue,
+				nodeParent,
+				nodeLeft,
+				nodeRight;
+
+			while(tempQ.length > 1){
+				nodeLeft = this.pop();
+				nodeRight = this.pop();
+				nodeParent = new Node();
+				nodeParent.childRight
+			} 
+		}
+
 	}
 
     //----------------------------------------------------------------------//
@@ -156,12 +180,12 @@ function HomeController($scope) {
 			result;
 
 		 unsortedList = [
-			{word: "hi", freq: 5},
-			{word: "zebra", freq: 18},
-			{word: "dog", freq: 4},
-			{word: "kitty", freq: 2},
-			{word: "casper", freq: 13},
-			{word: "nugget", freq: 11}
+			{pair:{word: "hi", freq: 5}},
+			{pair:{word: "zebra", freq: 18}},
+			{pair:{word: "dog", freq: 4}},
+			{pair:{word: "kitty", freq: 2}},
+			{pair:{word: "casper", freq: 13}},
+			{pair:{word: "nugget", freq: 11}}
 		];
 
 		sortedList = [
@@ -173,7 +197,7 @@ function HomeController($scope) {
 			unsortedList[1]
 		];
 
-		finalList = OrderByFreq(unsortedList);
+		finalList = OrderNodeByFreq(unsortedList);
 
 		if(finalList.length != sortedList.length){
 			vm.testResults.push(new TestResult("TESTOrderByFreq", "Input and output arrays are of different length.", false));
@@ -181,7 +205,7 @@ function HomeController($scope) {
 		};
 
 		for(i = 0; i < finalList.length; i++){
-			if(finalList[i].word != sortedList[i].word || finalList[i].freq != sortedList[i].freq){
+			if(finalList[i].pair.word != sortedList[i].pair.word || finalList[i].pair.freq != sortedList[i].pair.freq){
 				vm.testResults.push(new TestResult("TESTOrderByFreq", "Property values differ starting at index: " + i, false));
 				return
 			}
