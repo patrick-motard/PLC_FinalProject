@@ -14,10 +14,12 @@ function HomeController($scope) {
 		var queue = new PriorityQueue();
 		queue.populateQueue(frequencyObjectsArray);
 		queue.sort();
-		var huffman = createHuffman(queue);
 		vm.queue = queue.getQueue();
 
-		vm.outputMessage = frequencyObjectsArray;
+		var queue2 = new PriorityQueue();
+		queue2.populateQueue(frequencyObjectsArray);
+		vm.huffman = createHuffman(queue2);
+
 	};
 
 
@@ -112,14 +114,15 @@ function HomeController($scope) {
 		}
 	}
 	var createHuffman = function (queue) {
-		var	rent,
+		var tempQ = queue,
+			rent,
 			left,
 			right;
 
-		queue.sort();
-		while(queue.getQueue().length > 1){
-			left = queue.pop();
-			right = queue.pop();
+		tempQ.sort();
+		while(tempQ.getQueue().length > 1){
+			left = tempQ.pop();
+			right = tempQ.pop();
 			rent = new Node();
 			
 			left.rent = rent;
@@ -132,10 +135,10 @@ function HomeController($scope) {
 				word: '*', 
 				freq: left.pair.freq + right.pair.freq
 			}
-			queue.push(rent)
-			queue.sort();
+			tempQ.push(rent)
+			tempQ.sort();
 		}
-		return queue.getQueue()[0];
+		return tempQ.getQueue()[0];
 	}
 
     //----------------------------------------------------------------------//
