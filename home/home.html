@@ -33,21 +33,12 @@
 		</div><!--end row-->
 		<div class="row">
 			<div class="col-md-4">
-				<!--LIST OF WORDS-->
-				<h5>Words Found:</h5>
-				<p>Sorted by frequency</p>
-				<ul>
-					<li ng-repeat="object in vm.outputMessage">{{object.word}} : {{object.freq}}</li>
-				</ul>
-			</div>
-			<div class="col-md-4">
 				<!--PRIORITY QUEUE-->
 				<h5>Priority Queue</h5>
 				<div style="overflow:auto; height:250px">
 					<ul>
 						<li ng-repeat="qObj in vm.queue">
-							<strong>Name:</strong> {{qObj.pair.word}} <br/>
-							<strong>Freq:</strong> {{qObj.pair.freq}} <br/>
+							{{qObj.pair.word}} : {{qObj.pair.freq}}
 							<p ng-show="qObj.rent">
 								Parent Word: {{qObj.rent.pair.word}} <br/>
 								Parent Freq: {{qObj.parent.pair.freq}} 

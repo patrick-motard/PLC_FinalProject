@@ -6,25 +6,19 @@ function HomeController($scope) {
 	var vm = this;
 	vm.inputMessage = 'hi hi bye hello hi hi bye hello hi hi bye hello this is an awesome text string thing heya';
 	vm.encode = true;
+
 	vm.parseInput = function(){
-		var inn = vm.inputMessage,
-		out = vm.outputMessage;
+		var words = ListGenerator(vm.inputMessage);
+		var frequencyObjectsArray = GetFrequencyObjects(words);
 
-		out = ListGenerator(inn);
-		out = GetFrequencyObjects(out);
-		out = OrderNodeByFreq(out);
-
-		//create priority queue
 		var queue = new PriorityQueue();
-		//instantiate it with values from list of sorted word/frequency objects
-		queue.populateQueue(out);
+		queue.populateQueue(frequencyObjectsArray);
+		queue.sort();
+		var huffman = createHuffman(queue);
 		vm.queue = queue.getQueue();
 
-		vm.outputMessage = out;
+		vm.outputMessage = frequencyObjectsArray;
 	};
-	vm.outputMessage = "";
-
-	
 
 
 	//takes string representing a paragraph
@@ -57,24 +51,6 @@ function HomeController($scope) {
 		return frequencyCount;
 	}
 
-
-	//takes: list of word freq pairs
-	//gives: list of nodes sorted by freq
-	var OrderNodeByFreq = function (countObjs) {
-		var i;
-
-		countObjs.sort(function(thisObj, theNextObj){
-			if(thisObj.pair.freq < theNextObj.pair.freq){
-				return -1;
-			}
-			if(thisObj.pair.freq > theNextObj.pair.freq){
-				return 1;
-			}
-			return 0;
-		})
-		return countObjs;
-	}
-
 	//#5. create a data structure for nod (parent, child left/right, pair
 	//this is a class/object/datastructure and can be instantiated
 	function Node () {
@@ -88,7 +64,6 @@ function HomeController($scope) {
 	function PriorityQueue () {
 		
 		this._queue = [];
-		this._huffman = [];
 
 		this.populateQueue = function (input) {
 			var i,
@@ -96,7 +71,7 @@ function HomeController($scope) {
 			for(i = 0; i < input.length; i++){
 				tempNode = new Node();
 				tempNode.pair = input[i];
-				this._queue.push(tempNode);
+				this.push(tempNode);
 			}
 		}
 
@@ -104,15 +79,15 @@ function HomeController($scope) {
 			return this._queue;
 		}
 
-		this.getHuffman = function () {
-			return this._huffman;
+		this.push = function (node) {
+			this._queue.push(node);
 		}
 
 		this.pop = function () {
 			if(this._queue.length < 1){
 				return null;
 			}
-			return this._queue.splice(0,1);
+			return this._queue.splice(0,1)[0];
 		}
 
 		this.insert = function (node) {
@@ -120,23 +95,47 @@ function HomeController($scope) {
 		}
 
 		this.merge = function () {
-			this
+			
 		}
 
-		this.createHuffman = function () {
-			var tempQ = this._queue,
-				nodeParent,
-				nodeLeft,
-				nodeRight;
-
-			while(tempQ.length > 1){
-				nodeLeft = this.pop();
-				nodeRight = this.pop();
-				nodeParent = new Node();
-				nodeParent.childRight
-			} 
+		this.sort = function () {
+			var i;
+			this._queue.sort(function(thisObj, theNextObj){
+				if(thisObj.pair.freq < theNextObj.pair.freq){
+					return -1;
+				}
+				if(thisObj.pair.freq > theNextObj.pair.freq){
+					return 1;
+				}
+				return 0;
+			})
 		}
+	}
+	var createHuffman = function (queue) {
+		var	rent,
+			left,
+			right;
 
+		queue.sort();
+		while(queue.getQueue().length > 1){
+			left = queue.pop();
+			right = queue.pop();
+			rent = new Node();
+			
+			left.rent = rent;
+			right.rent = rent;
+
+			rent.childLeft = left;
+			rent.childRight = right;
+
+			rent.pair = {
+				word: '*', 
+				freq: left.pair.freq + right.pair.freq
+			}
+			queue.push(rent)
+			queue.sort();
+		}
+		return queue.getQueue()[0];
 	}
 
     //----------------------------------------------------------------------//
@@ -221,7 +220,7 @@ function HomeController($scope) {
 	//----------------------------------------------------------------------//
 	
 	(function init () {
-		runTests();
+		//runTests();
 	}())
 }
 
