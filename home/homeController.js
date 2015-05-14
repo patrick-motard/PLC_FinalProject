@@ -96,10 +96,6 @@ function HomeController($scope) {
 			this._queue.push(node);
 		}
 
-		this.merge = function () {
-			
-		}
-
 		this.sort = function () {
 			var i;
 			this._queue.sort(function(thisObj, theNextObj){

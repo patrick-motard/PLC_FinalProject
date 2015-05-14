@@ -1,7 +1,6 @@
 # PLC_FinalProject
 PLC_FinalProject by pmotard &amp; jsellers
 
-
 GENERATING FREQUENCY FILE:
 
 1. function to seperate doc into list of words
