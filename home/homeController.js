@@ -20,8 +20,39 @@ function HomeController($scope) {
 		queue2.populateQueue(frequencyObjectsArray);
 		vm.huffman = createHuffman(queue2);
 
+		vm.location = vm.huffman;
 	};
 
+	vm.traverse = function (command) {
+		if(command === 'left'){
+			if(!vm.location.childLeft){
+				alert('The current node does not have a left child.')
+				return;
+			}
+			vm.location = vm.location.childLeft;
+			return;
+		}
+		if(command === 'right'){
+			if(!vm.location.childRight){
+				alert('The current node does not have a right child.')
+				return;
+			}
+			vm.location = vm.location.childRight;
+			return;
+		}
+		if(command === 'parent'){
+			if(!vm.location.rent){
+				alert('The current node does not have a parent.')
+				return;
+			}
+			vm.location = vm.location.rent;
+			return;
+		}
+		if(command === 'root'){
+			vm.location = vm.huffman;
+			return;
+		}
+	};
 
 	//takes string representing a paragraph
 	//returns a list of words
@@ -172,10 +203,13 @@ function HomeController($scope) {
 	//TEST: OrderByFreq
 	//CHECKS: is the output the input sorted?
 	var TESTOrderByFreq = new Test(function () {
-		var unsortedList = [],
+		var queueToSort = new PriorityQueue(),
+			sortedQueue = new PriorityQueue(),
+			unsortedList = [],
 			sortedList = [],
 			finalList,
 			result;
+
 
 		 unsortedList = [
 			{pair:{word: "hi", freq: 5}},
@@ -186,6 +220,9 @@ function HomeController($scope) {
 			{pair:{word: "nugget", freq: 11}}
 		];
 
+		queueToSort.populateQueue(unsortedList);
+		queueToSort.sort();
+
 		sortedList = [
 			unsortedList[3],
 			unsortedList[2],
@@ -195,15 +232,15 @@ function HomeController($scope) {
 			unsortedList[1]
 		];
 
-		finalList = OrderNodeByFreq(unsortedList);
+		sortedQueue.populateQueue(sortedList);
 
-		if(finalList.length != sortedList.length){
+		if(queueToSort.getQueue().length != sortedQueue.getQueue().length){
 			vm.testResults.push(new TestResult("TESTOrderByFreq", "Input and output arrays are of different length.", false));
 			return;
 		};
 
-		for(i = 0; i < finalList.length; i++){
-			if(finalList[i].pair.word != sortedList[i].pair.word || finalList[i].pair.freq != sortedList[i].pair.freq){
+		for(i = 0; i < queueToSort.getQueue().length; i++){
+			if(queueToSort.getQueue()[i].pair.word != sortedQueue.getQueue()[i].pair.word || queueToSort.getQueue()[i].pair.freq != sortedQueue.getQueue()[i].pair.freq){
 				vm.testResults.push(new TestResult("TESTOrderByFreq", "Property values differ starting at index: " + i, false));
 				return
 			}
@@ -219,7 +256,7 @@ function HomeController($scope) {
 	//----------------------------------------------------------------------//
 	
 	(function init () {
-		//runTests();
+		runTests();
 	}())
 }
 
